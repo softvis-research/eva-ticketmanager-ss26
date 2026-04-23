@@ -29,6 +29,20 @@ public class Event {
         this.ticketsAvailable = new AtomicInteger(ticketsAvailable);
     }
 
+    /**
+     * Copy constructor. Produces a deep-enough copy so that mutations to the
+     * source do not affect the copy (and vice versa). Used by EventService to
+     * keep a defensive snapshot of the stored state, so callers can freely
+     * mutate the Event they received without corrupting the service's view.
+     */
+    public Event(Event other) {
+        this.id = other.id;
+        this.name = other.name;
+        this.location = other.location;
+        this.time = other.time;
+        this.ticketsAvailable = new AtomicInteger(other.ticketsAvailable.get());
+    }
+
     public UUID getId() {
         return id;
     }

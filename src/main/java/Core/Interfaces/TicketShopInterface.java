@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import Core.Models.Customer;
 import Core.Models.Event;
 
 public interface TicketShopInterface {
@@ -15,4 +16,11 @@ public interface TicketShopInterface {
     void deleteEvent(UUID id);
     void deleteAllEvents();
 
+    // Customer operations
+    List<Customer> getAllCustomers();
+    Customer createCustomer(String username, String email, LocalDate dateOfBirth);
+    Customer getCustomerById(UUID id);
+    void updateCustomer(Customer customer);
+    void deleteCustomer(UUID id);
+    void deleteAllCustomers();
 }

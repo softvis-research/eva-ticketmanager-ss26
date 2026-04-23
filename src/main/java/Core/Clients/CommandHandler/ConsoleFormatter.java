@@ -1,5 +1,6 @@
 package Core.Clients.CommandHandler;
 
+import Core.Models.Customer;
 import Core.Models.Event;
 
 import java.time.format.DateTimeFormatter;
@@ -7,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 public class ConsoleFormatter {
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public static String formatEvent(Event event) {
         return String.format(
@@ -15,6 +17,16 @@ public class ConsoleFormatter {
                 event.getLocation(),
                 event.getTime().format(DATE_TIME_FORMATTER),
                 event.getTicketsAvailable().get()
+        );
+    }
+
+    public static String formatCustomer(Customer customer) {
+        return String.format(
+                "[%s] %s <%s> (born %s)",
+                customer.getId(),
+                customer.getUsername(),
+                customer.getEmail(),
+                customer.getDateOfBirth().format(DATE_FORMATTER)
         );
     }
 }
