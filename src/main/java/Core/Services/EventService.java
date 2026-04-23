@@ -21,7 +21,11 @@ public class EventService implements EventServiceInterface {
         );
         EventList.add(event);
 
-        return event;
+        return new Event(event.getId(),
+                name,
+                location,
+                time,
+                ticketsAvailable);
     }
 
     @Override
@@ -30,7 +34,13 @@ public class EventService implements EventServiceInterface {
 
         for (Event event : EventList) {
             if (event.getId().equals(id)) {
-                return event;
+                return new Event(
+                        event.getId(),
+                        event.getName(),
+                        event.getLocation(),
+                        event.getTime(),
+                        event.getTicketsAvailable().get()
+                );
             }
         }
 
@@ -45,7 +55,7 @@ public class EventService implements EventServiceInterface {
         for (Event e : EventList) {
             if (e.getId().equals(uuid)) {
                 if(e.getTicketsAvailable().get() > event.getTicketsAvailable().get()){
-                    throw new EventException("Cannot increase tickets available");
+                    throw new EventException("Must not reduce available ticket contingent of existing event.");
                 }
                 e.setName(event.getName());
                 e.setLocation(event.getLocation());
@@ -55,6 +65,7 @@ public class EventService implements EventServiceInterface {
                 return;
             }
         }
+        throw new EventException("Event does not exist");
 
     }
 
