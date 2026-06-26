@@ -40,83 +40,99 @@ public class WebTicketShopController {
         ticketService.setEventService(eventService);
     }
 
+    @PostMapping("/event")
     public Event createEvent(@RequestBody CreateEventRequest request) {
-        //todo
-        return null;
+        return eventService.createEvent(request.name(), request.location(), request.time(), request.ticketsAvailable());
     }
 
+    @GetMapping("/event")
     public List<Event> getAllEvents() {
-        //todo
-        return null;
+        return eventService.getAllEvents();
     }
 
+    @GetMapping("/event/{id}")
     public Event getEventById(@PathVariable long id) {
-        //todo
-        return null;
+        try {
+            return eventService.getEventById(id);
+        } catch (Exception e){
+            throw new NoSuchElementException();
+
+        }
     }
 
-
+    @PutMapping("/event")
     public void updateEvent(@RequestBody Event event) {
-        //todo
+        eventService.updateEvent(event);
     }
 
+    @DeleteMapping("/event/{id}")
     public void deleteEvent(@PathVariable long id) {
-        //todo
+        eventService.deleteEvent(id);
     }
 
+    @DeleteMapping("/event")
     public void deleteAllEvents() {
-        //todo
+        eventService.deleteAllEvents();
     }
 
+    @PostMapping("/customer")
     public Customer createCustomer(@RequestBody CreateCustomerRequest request) {
-        //todo
-        return null;
+        return customerService.createCustomer(request.username(), request.email(), request.dateOfBirth());
     }
 
+    @GetMapping("/customer")
     public List<Customer> getAllCustomers() {
-        //todo
-        return null;
+        return customerService.getAllCustomers();
     }
 
-
+    @GetMapping("/customer/{id}")
     public Customer getCustomerById(@PathVariable long id) {
-        //todo
-        return null;
+        try {
+            return customerService.getCustomerById(id);
+        } catch (Exception e) {
+            throw new NoSuchElementException();
+        }
     }
 
 
+    @PutMapping("customer")
     public void updateCustomer(@RequestBody Customer customer) {
-        //todo
+        customerService.updateCustomer(customer);
     }
 
+    @DeleteMapping("/customer/{id}")
     public void deleteCustomer(@PathVariable long id) {
-        //todo
+        customerService.deleteCustomer(id);
     }
 
+    @DeleteMapping("/customer")
     public void deleteAllCustomers() {
-        //todo
+        customerService.deleteAllCustomers();
     }
 
+    // Ticket Operations
+    @PostMapping("/ticket")
     public Ticket createTicket(@RequestBody CreateTicketRequest request) throws TicketException {
-        //todo
-        return null;
+        return ticketService.createTicket(request.customerId(), request.eventId());
     }
 
+    @GetMapping("/ticket")
     public List<Ticket> getAllTickets() {
-        //todo
-        return null;
+        return ticketService.getAllTickets();
     }
 
+    @GetMapping("/ticket/{id}")
     public Ticket getTicketById(@PathVariable long id) throws TicketException {
-        //todo
-        return null;
+        return ticketService.getTicketById(id);
     }
 
+    @DeleteMapping("/ticket/{id}")
     public void deleteTicket(@PathVariable long id) {
-        //todo
+        ticketService.deleteTicket(id);
     }
 
+    @DeleteMapping("/ticket")
     public void deleteAllTickets() {
-        //todo
+        ticketService.deleteAllTickets();
     }
 }
